@@ -19,6 +19,7 @@
 return [
 
     '/' => 'IndexController/index',
+    'page/{n}' => 'IndexController/index',   // Pager
 
     '/show/magazine/{id}' => 'IndexController/showMagazine', // showMagazine
 
@@ -56,7 +57,8 @@ return [
     'magazine/destroy' => 'magazine/MagazineController/destroy', // delete | destroy (5)
 
     'magazine/list' => 'magazine/MagazineController/list',       // get    | list    (6)
-    'magazine/{id}' => 'magazine/MagazineController/show',       // get    | show    (7)
+    'magazine/list/page/{n}' => 'magazine/MagazineController/list',   // Pager       (7)
+    'magazine/{id}' => 'magazine/MagazineController/show',       // get    | show    (8)
     // Such route has to be last cause token parameter  takes away any other URI segments
 
     /* __________ Author Routes __________ */
@@ -70,7 +72,8 @@ return [
     'author/destroy' => 'author/AuthorController/destroy', // delete | destroy (5)
 
     'author/list' => 'author/AuthorController/list',       // get    | list    (6)
-    'author/{id}' => 'author/AuthorController/show',       // get    | show    (7)
+    'author/list/page/{n}' => 'author/AuthorController/list',   // Pager       (7)
+    'author/{id}' => 'author/AuthorController/show',       // get    | show    (8)
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
      * Data Base Adjustment. Migrations and Seeds for all tables

@@ -25,12 +25,16 @@
                     </div>
                     <? endforeach ?>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <a href="/blog/1">< Prev Page</a> |<a href="/blog/2">Next Page ></a>
-                    </div>
-                </div>
-
+            </div>
+        </div>
+        <hr/>
+        <div class="row justify-content-center"> <!-- Pagination -->
+            <div class="col-lg-3 col-md-5 col-sm-7">
+                <ul class="pagination" role="navigation">
+                    <? foreach($pager as $page): ?>
+                        <li class="page-item <? echo $page['class'] ?>"><a class="page-link" href="/<? echo $page['urn'] ?>"><? echo $page['label'] ?></a></li>
+                    <? endforeach ?>
+                </ul>
             </div>
         </div>
     </div>

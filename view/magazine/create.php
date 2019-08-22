@@ -15,8 +15,21 @@
                                 <input type="text" name="name" class="form-control" id="name" value="<? echo old('name') ? old('name') : '' ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="description">Status / Message:</label>
+                                <label for="description">Description:</label>
                                 <textarea type="text" class="form-control mc-text-area" name="description" id="description"><? echo old('description') ? old('description') : '' ?></textarea>
+                            </div>
+                            <!-- AUTHORS TO ADD -->
+                            <div class="form-group">
+                                <label>Available to add:</label>
+                                <select size="5" class="form-control custom-select" name="authors[]" multiple>
+                                    <option disabled> &nbsp; </option>
+                                    <? foreach ($authors as $a): ?>
+                                        <? if(!in_array($a->id, $staff_ids)): ?>
+                                            <option value="<? echo $a->id ?>"><? echo $a->name.' '.$a->surname ?></option>
+                                        <? endif ?>
+                                    <? endforeach ?>
+                                    <option disabled> &nbsp; </option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="release_at">Release Date:</label>

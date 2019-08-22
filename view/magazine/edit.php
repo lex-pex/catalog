@@ -15,7 +15,7 @@
                                 <input type="text" name="name" class="form-control" id="name" value="<? echo old('name') ? old('name') : $item->name ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="description">Status / Message:</label>
+                                <label for="description">Description:</label>
                                 <textarea type="text" class="form-control mc-text-area" name="description" id="description"><? echo old('description') ? old('description') : $item->description ?></textarea>
                             </div>
                             <!-- AUTHORS TO DELETE -->

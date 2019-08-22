@@ -15,8 +15,10 @@
                                         Description:<br/>
                                         <p class="mc-alert"><? echo $item->description ?></p>
                                         <p class="mc-alert-ok">Authors:
-                                            <? foreach($item->authors as $author): ?>
-                                            <span class="mc-mark"><? echo $author['name'] . ' ' . $author['surname'] ?></span>
+                                            <? foreach($item->authors as $a): ?>
+                                            <a style="text-decoration:none" href="/author/<? echo $a['id'] ?>">
+                                                <span class="mc-mark"><? echo $a['name'] . ' ' . $a['surname'] ?></span>
+                                            </a>
                                             <? endforeach ?>
                                         </p>
                                         <p class="mc-alert">Release Date:

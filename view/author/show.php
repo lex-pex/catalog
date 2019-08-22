@@ -14,8 +14,19 @@
                                         <p class="mc-alert">Name: <mark><? echo $item->name ?></mark></p>
                                         <p class="mc-alert">Surname: <mark><? echo $item->surname ?></mark></p>
                                         <p class="mc-alert">Father name: <mark><? echo $item->father_name ?></mark></p>
-                                        <p class="mc-alert">Added: <mark><? echo ($item->created_at) ? date('d.m.y H:i', strtotime($item->created_at)) : '--:--' ?></mark>
-                                            Updated: <mark><? echo ($item->updated_at) ? date('d.m.y H:i', strtotime($item->updated_at)) : '--:--' ?></mark></p>
+                                        <p class="mc-alert-ok">Magazines:
+                                            <? foreach($item->magazines as $m): ?>
+                                                <a style="text-decoration:none" href="/magazine/<? echo $m['id'] ?>">
+                                                    <span class="mc-mark"><? echo $m['name'] ?></span>
+                                                </a>
+                                            <? endforeach ?>
+                                        </p>
+                                        <p class="text-right">
+                                            <small>
+                                                Added: <mark><? echo ($item->created_at) ? date('d.m.y H:i', strtotime($item->created_at)) : '--:--' ?></mark>
+                                                Updated: <mark><? echo ($item->updated_at) ? date('d.m.y H:i', strtotime($item->updated_at)) : '--:--' ?></mark>
+                                            </small>
+                                        </p>
                                     </div>
                                 </div>
                             </div>

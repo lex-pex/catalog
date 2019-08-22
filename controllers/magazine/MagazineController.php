@@ -4,11 +4,13 @@ require_once ROOT . '/db/models/Magazine.php';
 require_once ROOT . '/db/models/Author.php';
 require_once ROOT . '/db/models/MagazinesAuthors.php';
 require_once ROOT . '/helpers/FileManager.php';
+require_once ROOT . '/helpers/Pager.php';
 
 use Db\Models\Author;
 use Db\Models\Magazine;
 use Db\Models\MagazinesAuthors;
 use Helpers\FileManager;
+use Helpers\Pager;
 
 class MagazineController
 {
@@ -16,18 +18,26 @@ class MagazineController
         if(!admin()) abort(404);
     }
 
-    public function list() {
-        $list = Magazine::allWith('authors', false);
+    public function list($page = 1) {
+//        $list = Magazine::all('authors', false);
+//        $list = Magazine::allWith('authors', false);
+//        $list = Magazine::chunkWith('authors', 0, 5, false);
+        $p = new Pager(new Magazine(), 5, false, 'authors');
+        if(!$pager_list = $p->feed($page)) abort(404);
+        $pager = $pager_list['pager'];
+        $list = $pager_list['result_set'];
         require_once ROOT . '/view/magazine/list.php';
     }
 
     public function show($id) {
+//        $item = Magazine::find($id);
         if(!$item = Magazine::with('authors', $id)) abort(404);
         require_once ROOT . '/view/magazine/show.php';
     }
 
     public function create() {
         unset_old_form_params();
+        $authors = Author::all();
         require_once ROOT . '/view/magazine/create.php';
     }
 
@@ -71,6 +81,7 @@ class MagazineController
             return;
         } else {
             $item = $item ? $item : new Magazine([$name, $description, $release_date]);
+            if(isset($_POST['authors'])) $this->addAuthors($_POST['authors'], $item->id);
         }
         $item->save();
         unset_old_form_params();

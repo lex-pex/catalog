@@ -295,6 +295,20 @@ class Model {
         }
         return $resultSet;
     }
+
+    /**
+     * Retrieve amount of all records for current instance
+     * @return int as amount of records of this model
+     */
+    public static function amount() {
+        $className = get_called_class();
+        $m = new $className();
+        $query = "SELECT COUNT(*) FROM $m->table";
+        $res = self::$db->prepare($query);
+        $res->execute();
+        $resultSet = $res->fetch();
+        return +$resultSet[0];
+    }
 }
 
 
