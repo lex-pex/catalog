@@ -16,7 +16,7 @@
                                         <p class="mc-alert">Father name: <mark><? echo $item->father_name ?></mark></p>
                                         <p class="mc-alert-ok">Magazines:
                                             <? foreach($item->magazines as $m): ?>
-                                                <a style="text-decoration:none" href="/magazine/<? echo $m['id'] ?>">
+                                                <a style="text-decoration:none" href="/show/magazine/<? echo $m['id'] ?>">
                                                     <span class="mc-mark"><? echo $m['name'] ?></span>
                                                 </a>
                                             <? endforeach ?>
