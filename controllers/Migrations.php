@@ -88,9 +88,9 @@ class Migrations {
         $t = 'users';
         $f = ['name', 'email', 'password', 'role'];
         $ids = 'Table "' . $t . '" Id\'s inserted: ';
-        $ids .= $this->insert($t, $f, ['Admin', 'admin@m.org', 'secret_admin', 'admin']) . ', ';
+        $ids .= $this->insert($t, $f, ['Admin', 'admin@i.org', 'secret_admin', 'admin']) . ', ';
         for($j = 1; $j <= 10; $j ++) {
-            $i = ['User_' . $j, 'user-' . $j . '@m.org', '87654321', 'user'];
+            $i = ['User_' . $j, 'user-' . $j . '@i.org', '87654321', 'user'];
             $ids .= $this->insert($t, $f, $i) . ', ';
         }
         echo trim($ids, ', ') . '<br/>';
