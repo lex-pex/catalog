@@ -10,8 +10,25 @@ use PDO;
 
 class Model {
 
-    public $table = '';
+    /**
+     * Fields in Table to interact at CRUD 
+     */
     public $fields = [];
+
+    /**
+     * Table in DB representing the model 
+     */
+    public $table = '';
+
+    /**
+     * 2X2 level Array with Many-to-Many Relations Refers 
+     * [
+     *     ['has_many_table', 'linked_table'],
+     *     ['wich_has_field', 'owner_field']
+     * ]
+     */
+    public $related = [];
+
     public $id = 0;
     private static $db;
 

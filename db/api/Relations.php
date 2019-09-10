@@ -33,7 +33,6 @@ trait Relations {
         $res = self::$db->prepare($query);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
-        $className = get_class($m);
         $i = 0;
         $resultSet = [];
         while ($row = $res->fetch()) {
