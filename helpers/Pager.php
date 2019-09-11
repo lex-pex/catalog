@@ -8,13 +8,13 @@ class Pager {
     private $model;
     private $limit = 0;
     private $lifo = true;
-    private $table_with = '';
+    private $item_with = '';
 
-    public function __construct(Model $model, int $limit, bool $lifo = true, $table_with = '') {
+    public function __construct(Model $model, int $limit, bool $lifo = true, $item_with = '') {
         $this->model = $model;
         $this->limit = $limit;
         $this->lifo = $lifo;
-        $this->table_with = $table_with;
+        $this->item_with = $item_with;
     }
 
     public function feed($page) {
@@ -23,8 +23,11 @@ class Pager {
         $amountPages = $this->actualPages($this->limit, $total);
         if($page > $amountPages) return null;
         $skip = ($page - 1) * $this->limit;
-        if($this->table_with)
-            $rs = $this->model::chunkWith($this->table_with, $skip, $this->limit, $this->lifo);
+        if($this->item_with)
+            if(is_string($this->item_with))
+                $rs = $this->model::chunkWith($this->item_with, $skip, $this->limit, $this->lifo);
+            else
+                $rs = $this->model::bulkChunkWith($this->item_with, $skip, $this->limit, $this->lifo);
         else
             $rs = $this->model::chunk($skip, $this->limit, $this->lifo);
         return (['pager' => $this->pager($amountPages, $page), 'result_set' => $rs]);

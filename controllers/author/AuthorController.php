@@ -2,15 +2,21 @@
 
 namespace Controllers\Author;
 require_once ROOT . '/db/models/Author.php';
+require_once ROOT . '/db/models/Magazine.php';
 require_once ROOT . '/helpers/Pager.php';
 use Db\Models\Author;
+use Db\Models\Magazine;
 use Helpers\Pager;
 
 class AuthorController
 {
     public function list($page = 1) {
-//        $list = Author::all(false);
-        $p = new Pager(new Author(), 5, false, 'magazines');
+        // $list = Author::all(false);
+        // $list = Author::allWith('magazines', false);
+        // $list = Author::bulkAllWith(new Magazine(), false);
+        // $list = Author::bulkChunkWith(new Magazine(), 0, 5, false);
+        // $p = new Pager(new Author(), 5, false, 'magazines');
+        $p = new Pager(new Author(), 5, false, new Magazine()); // Bulk SQL Operation 
         if(!$pager_list = $p->feed($page)) abort(404);
         $pager = $pager_list['pager'];
         $list = $pager_list['result_set'];

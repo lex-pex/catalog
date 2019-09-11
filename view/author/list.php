@@ -47,7 +47,7 @@
                 <? endforeach ?>
             </div>
         </div>
-        <div class="row justify-content-center"> <!-- Pagination -->
+        <? if(isset($pager)): ?> <hr/> <div class="row justify-content-center"> <!-- Pagination -->
             <div class="col-lg-3 col-md-5 col-sm-7">
                 <ul class="pagination">
                     <? foreach($pager as $page): ?>
@@ -55,7 +55,7 @@
                     <? endforeach ?>
                 </ul>
             </div>
-        </div>
+        </div> <? endif ?>
     </div>
 <? require_once ROOT . '/view/layers/footer.php' ?>
 

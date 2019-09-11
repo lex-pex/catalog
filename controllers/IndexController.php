@@ -21,5 +21,4 @@ class IndexController {
         if(!$item = Magazine::with('authors', $id)) abort(404);
         require_once ROOT . '/view/magazine/show.php';
     }
-
 }
