@@ -126,7 +126,9 @@ trait Relations {
 
     /**
      * Return Range Records for Pagination with Arrording Related as Array 
-     * In two query, due to amount offset items and parsing dublicated rows 
+     * In two query, due to amount offset items and parsing dublicated rows
+     * Since not all MySql servers support limit/offset in subqueries, 
+     * here were used two query in separately. 
      */
     public static function bulkChunkWith(Model $model, int $offset, int $limit, bool $order = true) { 
         $className = get_called_class();
