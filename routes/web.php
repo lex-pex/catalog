@@ -1,5 +1,4 @@
 <?php
-
 /* ----------------------------------------------------
  *  .    .... .   .     ... .... .   .
  *  .    ..     .   ..  ... ...    .
@@ -13,7 +12,6 @@
  *
  * To quick start launch Migrations and Seeds
  * Init Data run on request: create_and_seed_all_tables
- *
  */
 
 return [
@@ -93,16 +91,14 @@ return [
     'one/{PAR_1}/two/{PAR_2}' => 'TestController/test',
 ];
 
-/*  Reminder
-                       ------- REST API -------
- | GET 	       /photos 	              index      photos. index      | 1
- | GET 	       /photos/create 	      create 	 photos. create     | 2
- | POST        /photos 	              store      photos. store      | 3
- | GET 	       /photos/{photo} 	      show       photos. show       | 4
- | GET 	       /photos/{photo}/edit   edit.      photos. edit       | 5
- | PUT/PATCH   /photos/{photo} 	      update 	 photos. update     | 6
- | DELETE      /photos/{photo} 	      destroy 	 photos. destroy    | 7
-
+/* - - - - - - - - - - - REST API - - - - - - - - - - - 
+GET          /photos                index      photos. index     | 1 
+GET          /photos/create         create     photos. create    | 2 
+POST         /photos                store      photos. store     | 3 
+GET          /photos/{photo}        show       photos. show      | 4 
+GET          /photos/{photo}/edit   edit.      photos. edit      | 5 
+PUT/PATCH    /photos/{photo}        update     photos. update    | 6 
+DELETE       /photos/{photo}        destroy    photos. destroy   | 7 
 */
 
 
