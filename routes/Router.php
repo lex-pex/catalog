@@ -38,6 +38,10 @@ class Router {
 	        throw new Exception('There is no such method as "' . $methodName . '" in class ' . $fullControllerName);
 	}
 
+    /**
+     * Get the controller, method and params according the request
+     * @return array two strings Controller-Action 
+     */
 	private function getAction()
     {
         if (empty($_SERVER['REQUEST_URI'])) return [];
@@ -50,7 +54,7 @@ class Router {
         foreach ($this->routes as $route => $action) {
             if($route === '/') continue;
             $reg = preg_replace('~{[a-zA-Z0-9_-]+}~', '[a-zA-Z0-9_-]+', $route);
-            $reg = trim($reg, '/');         // _________ ! ! ! ! ! ! ________    trim  / . . . /
+            $reg = trim($reg, '/');
             $route = trim($route, '/');
             if (preg_match('~^' . $reg . '$~', $request)) {
                 return $this->parseAction($request, $route, $action);
