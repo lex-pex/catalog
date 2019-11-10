@@ -5,6 +5,9 @@ namespace Controllers;
 require_once ROOT . '/db/util/Connection.php';
 use Db\Util\Connection;
 
+/**
+ * Create and populate given database schema 
+ */
 class Migrations {
 
     private static $db;
