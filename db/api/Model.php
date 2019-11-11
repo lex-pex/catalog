@@ -234,7 +234,8 @@ class Model {
     }
 
     /**
-     * Retrieve all rows from Db table and wrap its into $this object
+     * Retrieve all table records wrapping them into this entities 
+     * @param bool true adds the ascending order into query 
      * @return array objects $this model on success filled with db row, or null
      */
     public function selectAll(bool $order = true) {
