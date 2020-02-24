@@ -288,9 +288,10 @@ class Model {
     }
 
     /**
-     * Static Interface for object function condition()
      * Retrieve subset from table according "where" clause
-     * @param string $key = $valie clause as key and needed value
+     * @param string $key the field needed to be matched 
+     * @param string $value matched content for field
+     * @param string $symbol equity sign 
      * @return array of model objects, empty on bad condition
      */
     public function condition(string $key, string $value, string $symbol = '=') {

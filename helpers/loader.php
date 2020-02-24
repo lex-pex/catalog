@@ -81,7 +81,9 @@ function is_token() {
     return $_SESSION['auth']['csrf_token'] === $t;
 }
 
-
+function csrf_token() {
+    return $_SESSION['auth']['csrf_token'];
+}
 
 
 
