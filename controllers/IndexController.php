@@ -9,6 +9,7 @@ use Helpers\Pager;
 class IndexController {
 
     public function index($page = 1) {
+        echo 'HERE IT IS';
         // $items = Magazine::all(false);
         $p = new Pager(new Magazine(), 4, false);
         if(!$pager_list = $p->feed($page)) abort(404);
@@ -17,6 +18,10 @@ class IndexController {
         require_once ROOT . '/view/main/index.php';
     }
 
+    /**
+     * The public page to show item 
+     * @param $id is identifier to show item by 
+     */
     public function showMagazine($id) {
         if(!$item = Magazine::with('authors', $id)) abort(404);
         require_once ROOT . '/view/magazine/show.php';

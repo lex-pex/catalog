@@ -5,6 +5,11 @@ use PDO;
 
 trait Relations {
 
+    /**
+     * Get the collection with related records from linked table
+     * @param $table is the name of linked table 
+     * @param $id is identifier of needed record 
+     */
     public static function with($table, $id) {
         $className = get_called_class();
         $m = new $className();
@@ -73,6 +78,13 @@ trait Relations {
         return $resultSet;
     }
 
+    /**
+     * Get the collection of related records from linked table
+     * @param $id is identifier of needed record 
+     * @param $m is the Model with 
+     * linked table, goal_id, related table
+     * in the 'related' array 
+     */
     private static function getRelated(int $id, Model $m) {
         // SELECT * FROM authors WHERE id IN (SELECT author FROM magazines_authors WHERE magazine = 1)
         $table = $m->related[0][0];
