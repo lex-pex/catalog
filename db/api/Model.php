@@ -11,7 +11,7 @@ use PDO;
 class Model {
 
     /**
-     * Fields in Table to interact at CRUD 
+     * Fields in Table to interact in CRUD 
      */
     public $fields = [];
 
@@ -27,13 +27,24 @@ class Model {
      *     ['wich_has_field', 'owner_field']
      * ]
      */
-    public $related = [];
+    public $related = [
+        ['has_many_table', 'linked_table'],
+        ['wich_has_field', 'owner_field']
+    ];
 
     public $id = 0;
+
+    /**
+     * Datababase connnection 
+     */
     private static $db;
 
     use Relations;
 
+    /**
+     * Constructor of the data instance
+     * @param $fields gets values in order specified in $this->fields array
+     */
     public function __construct(array $fields = null) {
         $idx = 0;
         foreach ($this->fields as $key) {
@@ -43,12 +54,22 @@ class Model {
         self::$db = Connection::getConnection();
     }
 
+    /**
+     * Set value to item of the $this->fields array 
+     * @param $name gets name
+     * @param $value gets name 
+     */
     public function __set($name, $value) {
         if(array_key_exists($name, $this->fields)) {
             $this->fields[$name] = $value;
         }
     }
 
+    /**
+     * Get value to item of the $this->fields array 
+     * @param $name gets name
+     * @param $value gets name 
+     */
     public function __get($name) {
         return isset($this->fields[$name]) ? $this->fields[$name] : null;
     }
