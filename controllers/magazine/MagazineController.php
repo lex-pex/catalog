@@ -18,6 +18,10 @@ class MagazineController
         if(!admin()) abort(404);
     }
 
+    /**
+     * Browse all items example
+     * Render the page of select all
+     */
     public function list($page = 1) {
         // $list = Magazine::all('authors', false);
         // $list = Magazine::allWith('authors', false);
@@ -32,6 +36,10 @@ class MagazineController
         require_once ROOT . '/view/magazine/list.php';
     }
 
+    /**
+     * Read operation example, render the page of the item
+     * @param $id identifier of needed object 
+     */
     public function show($id) {
 //        $item = Magazine::find($id);
         if(!$item = Magazine::with('authors', $id)) abort(404);

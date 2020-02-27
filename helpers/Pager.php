@@ -17,6 +17,11 @@ class Pager {
         $this->item_with = $item_with;
     }
 
+    /**
+     * Create chunked feed of items with page control links 
+     * @param int $page - number of needed page 
+     * @return array $pager_set 
+     */
     public function feed($page) {
         if(!$page || !is_numeric($page) || $page < 0) return null;
         $total = $this->model::amount();
