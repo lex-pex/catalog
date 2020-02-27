@@ -1,6 +1,7 @@
 <?php
 
 /* - - - - - - - - - - - - - - - - - -
+ * Global Helpers Plug-In
  * Autoload function init() initiate
  * the App with all its helpers
  */
@@ -35,9 +36,11 @@ function redirect(string $route) {
     exit();
 }
 
-// ---- Forms ----
+// ______ Forms Interaction Аunctional ______ 
 
-// Remember request params on redirect back event
+/**
+ * Remember request params on redirect back event 
+ */
 function set_old_form_params() {
     if(count($_REQUEST) > 1) {
         $_SESSION['old_params'] = $_REQUEST;
@@ -47,14 +50,18 @@ function set_old_form_params() {
 function unset_old_form_params() {
     unset($_SESSION['old_params']);
 }
-  // Helper for fulfilling the forms, preserves the old value
+
+/**
+ * Helper for fulfilling the forms, preserves the old value
+ * @return string - value of previous failed filling out the form
+ */
 function old($key) {
     if(!empty($_SESSION['old_params'][$key]))
         return $_SESSION['old_params'][$key];
     return '';
 }
 
-// ---- Auth and User ----
+// ______ Auth and User ______
 
 function user() {
     return Auth::user();
