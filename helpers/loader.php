@@ -1,22 +1,31 @@
 <?php
 
 /* - - - - - - - - - - - - - - - - - -
- * Global Helpers Plug-In
- * Autoload function init() initiate
- * the App with all its helpers
+ * ______ Global Helpers Plug-In
+ * Autoload function init() initiate 
+ * the App with all its helpers 
  */
 
 require ROOT. '/helpers/Auth.php';
 use Helpers\Auth;
 
+
 init();
+
+/**
+ * Load initial application conditions
+ */
 function init() {
     set_old_form_params();
 }
 
-// --- Routes ----
+// ______ Routes ______
 
-  // Global Helper Route Builder
+/**
+ * Put route string in the out write stream 
+ * @param $route string of urn
+ * @param $param string of param value 
+ */
 function route(string $route, string $param = '') {
     echo '/'. trim($route, '/') . ($param ? '/' . $param : '');
 }

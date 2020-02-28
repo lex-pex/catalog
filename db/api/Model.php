@@ -22,10 +22,8 @@ class Model {
 
     /**
      * 2X2 level Array with Many-to-Many Relations Refers 
-     * [
-     *     ['has_many_table', 'linked_table'],
-     *     ['wich_has_field', 'owner_field']
-     * ]
+     * - ['has_many_table', 'linked_table']
+     * - ['wich_has_field', 'owner_field']
      */
     public $related = [
         ['has_many_table', 'linked_table'],
@@ -149,7 +147,8 @@ class Model {
     }
 
     /**
-     *  Below are Static Functions' Interfaces and General Methods
+     *  Below are Static Functions' Wrappers and General Methods
+     *  Mostly for interaction with model without object (with data-table)
      */
 
     /**
@@ -350,6 +349,10 @@ class Model {
         return +$resultSet[0];
     }
 }
+
+
+
+
 
 
 

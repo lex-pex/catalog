@@ -3,6 +3,11 @@
 namespace Helpers;
 use Db\Api\Model;
 
+/**
+ * Class represents a slice retreiver object
+ * With main public method feed() assembling 
+ * a set of items to render paged content
+ */
 class Pager {
 
     private $model;
@@ -10,6 +15,13 @@ class Pager {
     private $lifo = true;
     private $item_with = '';
 
+    /**
+     * Pager Constructor 
+     * @param Model $model Model, set of which needed to be sliced into pages 
+     * @param int $limit - the size of the slice 
+     * @param bool $lifo - sorting order
+     * @param string $item_with - name of the related table to create subsets 
+     */
     public function __construct(Model $model, int $limit, bool $lifo = true, $item_with = '') {
         $this->model = $model;
         $this->limit = $limit;
