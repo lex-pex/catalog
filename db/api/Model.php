@@ -11,7 +11,7 @@ use PDO;
 class Model {
 
     /**
-     * Fields in Table to interact in CRUD 
+     * Fields in Table participating in CRUD
      */
     public $fields = [];
 

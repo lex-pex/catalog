@@ -80,8 +80,8 @@ trait Relations {
 
     /**
      * Get the collection of related records from linked table
-     * @param $id is identifier of needed record 
-     * @param $m is the Model with 
+     * @param $id int is the identifier of needed record
+     * @param $m Model is the Model with
      * linked table, goal_id, related table
      * in the 'related' array 
      */
@@ -137,10 +137,15 @@ trait Relations {
     }
 
     /**
-     * Return Range Records for Pagination with Arrording Related as Array 
-     * In two query, due to amount offset items and parsing dublicated rows
-     * Since not all MySql servers support limit/offset in subqueries, 
-     * here were used two query in separately. 
+     * Return Range Records for Pagination with Arrording Related as Array
+     * In two query, due to amount offset items and parsing duplicated rows
+     * Since not all MySql servers support limit/offset in sub queries,
+     * here were used two query in separately.
+     * @param Model $model - instance list of which needed
+     * @param int $offset - start index of selection
+     * @param int $limit - actual amount items of the selection
+     * @param bool $order - sorting vector
+     * @return array - list of the Models with the linked Models
      */
     public static function bulkChunkWith(Model $model, int $offset, int $limit, bool $order = true) { 
         $className = get_called_class();
