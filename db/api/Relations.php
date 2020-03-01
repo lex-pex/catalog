@@ -7,8 +7,9 @@ trait Relations {
 
     /**
      * Get the collection with related records from linked table
-     * @param $table is the name of linked table 
-     * @param $id is identifier of needed record 
+     * @param $table is the name of linked table
+     * @param $id is identifier of needed record
+     * @return null or Model with subset of linked item
      */
     public static function with($table, $id) {
         $className = get_called_class();
@@ -98,14 +99,14 @@ trait Relations {
         return $res->fetchAll();
     }
 
-    /**
-     * Bulk Operatons with Linked Tables,
-     * In one query, parsing dublicated rows 
-     */
+    /** ________ Bulk Operations with Linked Tables, In one query, parsing duplicated rows ________ */
 
     /**
-     * Return All Records with Arrording Related as Array 
-     * In one query, by means of parsing dublicated rows 
+     * Return All Records with Arrording Related as Array
+     * In one query, by means of parsing duplicated rows
+     * @param Model $model
+     * @param bool $order
+     * @return array
      */
     public static function bulkAllWith(Model $model, $order = true) { 
         $className = get_called_class();
@@ -133,11 +134,11 @@ trait Relations {
         $res = self::$db->prepare($q);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
-        return self::parseDublicatedRows($res, $className, $table, $linked_keys);
+        return self::parseDuplicatedRows($res, $className, $table, $linked_keys);
     }
 
     /**
-     * Return Range Records for Pagination with Arrording Related as Array
+     * Return Range Records for Pagination with According Related as Array
      * In two query, due to amount offset items and parsing duplicated rows
      * Since not all MySql servers support limit/offset in sub queries,
      * here were used two query in separately.
@@ -147,7 +148,8 @@ trait Relations {
      * @param bool $order - sorting vector
      * @return array - list of the Models with the linked Models
      */
-    public static function bulkChunkWith(Model $model, int $offset, int $limit, bool $order = true) { 
+    public static function bulkChunkWith(Model $model, int $offset, int $limit, bool $order = true) {
+
         $className = get_called_class();
         $m = new $className();
         $order = $order ? 'ASC' : 'DESC';
@@ -187,10 +189,10 @@ trait Relations {
         $res->bindParam(':limit', $limit, PDO::PARAM_INT);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
-        return self::parseDublicatedRows($res, $className, $table, $linked_keys);
+        return self::parseDuplicatedRows($res, $className, $table, $linked_keys);
     }
 
-    private static function parseDublicatedRows($res, $className, $table, $linked_keys) {
+    private static function parseDuplicatedRows($res, $className, $table, $linked_keys) {
         $rs = [];
         $ids = [];
         $i = -1;
