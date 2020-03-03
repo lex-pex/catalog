@@ -4,7 +4,7 @@ namespace Helpers;
 use Db\Api\Model;
 
 /**
- * Class represents a slice retreiver object
+ * Class represents a slice retriever object
  * With main public method feed() assembling 
  * a set of items to render paged content
  */
@@ -35,18 +35,35 @@ class Pager {
      * @return array $pager_set 
      */
     public function feed($page) {
+
+        // check parameter of page
         if(!$page || !is_numeric($page) || $page < 0) return null;
+
+        // get amount of records
         $total = $this->model::amount();
+
+        // calculate amount of pages
         $amountPages = $this->actualPages($this->limit, $total);
+
+        // check if the limit is not exceeded
         if($page > $amountPages) return null;
+
+        // amount items that needed to be left behind
         $skip = ($page - 1) * $this->limit;
-        if($this->item_with)
-            if(is_string($this->item_with))
+
+        // If linked table requested
+        if($this->item_with) {
+
+            if (is_string($this->item_with)) {
                 $rs = $this->model::chunkWith($this->item_with, $skip, $this->limit, $this->lifo);
-            else
+            } else {
                 $rs = $this->model::bulkChunkWith($this->item_with, $skip, $this->limit, $this->lifo);
-        else
+            }
+
+        } else {
             $rs = $this->model::chunk($skip, $this->limit, $this->lifo);
+        }
+
         return (['pager' => $this->pager($amountPages, $page), 'result_set' => $rs]);
     }
 
@@ -84,7 +101,13 @@ class Pager {
         return $res;
     }
 
-    // Calculate Actual Amount of Pages
+
+    /**
+     * Calculate Actual Amount of Pages
+     * @param $limit - size of the page
+     * @param $total - amount of all records
+     * @return int - number of pages to render
+     */
     private function actualPages($limit, $total) {
         $additionalPage = $total % $limit;
         $actual = ($total - ($additionalPage)) / $limit;
