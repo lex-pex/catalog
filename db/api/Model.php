@@ -209,12 +209,13 @@ class Model {
      * Retrieve subset from table in Descending order
      * @param  int $offset start position from zero (excluding)
      * @param  int $limit end position (including) of subset from offset
+     * @param bool $order - sorting vector
      * @return int as amount of returned table rows
      */
-    public static function chunk(int $offset, int $limit) {
+    public static function chunk(int $offset, int $limit, bool $order = true) {
         $className = get_called_class();
         $m = new $className();
-        return $m->slice($offset, $limit);
+        return $m->slice($offset, $limit, $order);
     }
 
     /**
@@ -283,9 +284,11 @@ class Model {
      * Retrieve subset from table in Descending order
      * @param  int $offset start position from zero (excluding)
      * @param  int $limit end position (including) of subset from offset
+     * @param bool $order - sorting vector
      * @return array as result set of table rows
      */
-    public function slice(int $offset, int $limit) {
+    public function slice(int $offset, int $limit, bool $order = true) {
+        $order = $order ? 'asc' : 'desc';
         $query = "SELECT * FROM $this->table ORDER BY id DESC LIMIT :limit OFFSET :offset";
         $res = self::$db->prepare($query);
         $res->bindParam(':offset', $offset, PDO::PARAM_INT);
