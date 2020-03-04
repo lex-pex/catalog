@@ -21,19 +21,19 @@ class Model {
     public $table = '';
 
     /**
-     * 2X2 level Array with Many-to-Many Relations Refers 
+     * 2 level Array with Many-to-Many Relations Refers
      * - ['has_many_table', 'linked_table']
-     * - ['wich_has_field', 'owner_field']
+     * - ['which_has_field', 'owner_field']
      */
     public $related = [
         ['has_many_table', 'linked_table'],
-        ['wich_has_field', 'owner_field']
+        ['which_has_field', 'owner_field']
     ];
 
     public $id = 0;
 
     /**
-     * Datababase connnection 
+     * Database connection
      */
     private static $db;
 
@@ -41,7 +41,7 @@ class Model {
 
     /**
      * Constructor of the data instance
-     * @param $fields gets values in order specified in $this->fields array
+     * @param $fields array gets values in order specified in $this->fields array
      */
     public function __construct(array $fields = null) {
         $idx = 0;
@@ -54,8 +54,8 @@ class Model {
 
     /**
      * Set value to item of the $this->fields array 
-     * @param $name gets name
-     * @param $value gets name 
+     * @param $name string gets name
+     * @param $value string gets name
      */
     public function __set($name, $value) {
         if(array_key_exists($name, $this->fields)) {
@@ -64,9 +64,9 @@ class Model {
     }
 
     /**
-     * Get value to item of the $this->fields array 
-     * @param $name gets name
-     * @param $value gets name 
+     * Get value to item of the $this->fields array
+     * @param $name string gets name
+     * @return mixed|null
      */
     public function __get($name) {
         return isset($this->fields[$name]) ? $this->fields[$name] : null;
