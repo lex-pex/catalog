@@ -22,8 +22,10 @@ class Model {
 
     /**
      * 2 level Array with Many-to-Many Relations Refers
-     * - ['has_many_table', 'linked_table']
-     * - ['which_has_field', 'owner_field']
+     * [
+     *    ['has_many_table', 'linked_table']
+     *    ['which_has_field', 'owner_field']
+     * ]
      */
     public $related = [
         ['has_many_table', 'linked_table'],
@@ -168,6 +170,7 @@ class Model {
     /**
      * Static Method for delete a record in one touch
      * Delete the record of current object from db table
+     * @param $id int - identifier of deleted record
      * @return int as amount of deleted table rows
      */
     public static function destroy(int $id) {
@@ -184,7 +187,7 @@ class Model {
     /**
      * Static Interface for object fucntion select()
      * Retrieve an instance from Db table and wrap it into this object
-     * @param int $id exact position in the database
+     * @param $id int - exact position in the database
      * @return object $this model on success filled with db row, or null
      */
     public static function find($id) {
