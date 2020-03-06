@@ -6,9 +6,9 @@ use PDO;
 trait Relations {
 
     /**
-     * Get the collection with related records from linked table
-     * @param $table is the name of linked table
-     * @param $id is identifier of needed record
+     * Get the record with related records from linked table
+     * @param $table string - the name of linked table
+     * @param $id int - identifier of needed record
      * @return null or Model with subset of linked item
      */
     public static function with($table, $id) {
@@ -31,6 +31,12 @@ trait Relations {
         return null;
     }
 
+    /**
+     * Get the collection of all records with related records from linked table
+     * @param $table string - the name of linked table
+     * @param $order bool - sorting vector by id
+     * @return null or Model with subset of linked item
+     */
     public static function allWith($table, $order = true) {
         $className = get_called_class();
         $m = new $className();
