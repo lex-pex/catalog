@@ -105,7 +105,7 @@ trait Relations {
         return $res->fetchAll();
     }
 
-    /** ________ Bulk Operations with Linked Tables, In one query, parsing duplicated rows ________ */
+    /** Bulk Operations with Linked Tables, In one query, parsing duplicated rows */
 
     /**
      * Return All Records with Arrording Related as Array
@@ -171,11 +171,12 @@ trait Relations {
 
         $related = $m->related;
         $table = $related[0][0];
-        $linked_table = $related[0][1]; 
-        $goal_id = $related[1][0]; 
-        $own_id = $related[1][1]; 
+        $linked_table = $related[0][1];
+        $goal_id = $related[1][0];
+        $own_id = $related[1][1];
 
         $aliases = "$table.id AS $table" . "_id, ";
+
         foreach ($model->fields as $n => $f) {
             if(is_numeric($n)) {
                 $aliases .= $table . '.' . $f . ' AS ' . $table . '_' . $f . ', ';
@@ -183,6 +184,7 @@ trait Relations {
                 $linked_keys[$table . '_' . $f] = $f;
             }
         }
+
         $aliases = trim($aliases, ', ');
 
         $q = "SELECT $m->table.*, $aliases " .
@@ -198,13 +200,22 @@ trait Relations {
         return self::parseDuplicatedRows($res, $className, $table, $linked_keys);
     }
 
+    /**
+     * @param $res
+     * @param $className
+     * @param $table
+     * @param $linked_keys
+     * @return array
+     */
     private static function parseDuplicatedRows($res, $className, $table, $linked_keys) {
         $rs = [];
         $ids = [];
         $i = -1;
+        $item = null;
+        $m = new $className();
         while ($row = $res->fetch()) { 
-            if(!in_array($row['id'], $ids)) { 
-                $m = new $className();
+            if(!in_array($row['id'], $ids)) {
+                // $m = new $className(); //
                 $m->id = $row['id'];
                 foreach ($m->fields as $n => $f)
                     if(is_numeric($n))
@@ -218,12 +229,22 @@ trait Relations {
             } else {
                 foreach ($linked_keys as $k => $v) { 
                     $item[$v] = $row[$k];
-                } 
-                $m->fields[$table][] = $item; 
+                }
+                $m->fields[$table][] = $item;
             }
         }
         return $rs;
     }
 
 }
+
+
+
+
+
+
+
+
+
+
 
