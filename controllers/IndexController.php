@@ -13,7 +13,7 @@ class IndexController {
 
     /**
      * The public page to show All Items (browse) 
-     * @param $id is identifier to show item by 
+     * @param $page int is number of page to show
      */
     public function index($page = 1) {
         // $items = Magazine::all(false);

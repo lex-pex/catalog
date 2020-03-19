@@ -21,6 +21,7 @@ class MagazineController
     /**
      * Browse all items example
      * Render the page of select all
+     * @param int $page number of pagination
      */
     public function list($page = 1) {
         // $list = Magazine::all('authors', false);
@@ -29,7 +30,7 @@ class MagazineController
         // $list = Magazine::chunkWith('authors', 0, 5, false);
         // $list = Magazine::bulkChunkWith(new Author(), 0, 5, false);
         // $p = new Pager(new Magazine(), 5, false, 'authors');
-        $p = new Pager(new Magazine(), 5, false, new Author()); // Bulk SQL Operation 
+        $p = new Pager(new Magazine(), 5, false, new Author()); // Bulk SQL Operation
         if(!$pager_list = $p->feed($page)) abort(404);
         $pager = $pager_list['pager'];
         $list = $pager_list['result_set'];

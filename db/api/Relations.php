@@ -201,11 +201,12 @@ trait Relations {
     }
 
     /**
+     * Eliminate the duplicated records of linked table
      * @param $res
      * @param $className
      * @param $table
      * @param $linked_keys
-     * @return array
+     * @return array as a Result Set
      */
     private static function parseDuplicatedRows($res, $className, $table, $linked_keys) {
         $rs = [];
@@ -215,7 +216,7 @@ trait Relations {
         $m = new $className();
         while ($row = $res->fetch()) { 
             if(!in_array($row['id'], $ids)) {
-                // $m = new $className(); //
+                $m = new $className(); // Eliminate duplicated records
                 $m->id = $row['id'];
                 foreach ($m->fields as $n => $f)
                     if(is_numeric($n))
@@ -235,7 +236,6 @@ trait Relations {
         }
         return $rs;
     }
-
 }
 
 
