@@ -159,8 +159,9 @@ trait Relations {
         $className = get_called_class();
         $m = new $className();
         $order = $order ? 'ASC' : 'DESC';
+        $linked_keys = [];
 
-        $q_ids = 'SELECT id FROM '. $m->table .' ORDER BY id DESC LIMIT '. $limit . ' OFFSET ' . $offset;
+        $q_ids = 'SELECT id FROM '. $m->table .' ORDER BY id '. $order .' LIMIT '. $limit . ' OFFSET ' . $offset;
         $res = self::$db->prepare($q_ids);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
@@ -197,16 +198,17 @@ trait Relations {
         $res->bindParam(':limit', $limit, PDO::PARAM_INT);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
+
         return self::parseDuplicatedRows($res, $className, $table, $linked_keys);
     }
 
     /**
      * Eliminate the duplicated records of linked table
      * @param $res
-     * @param $className
-     * @param $table
-     * @param $linked_keys
-     * @return array as a Result Set
+     * @param $className - name is gotten from function get_called_class()
+     * @param $table - related table from $related[0][0]
+     * @param $linked_keys - keys of linked table, look like "tableName_id" and "tableName_field"
+     * @return array as a Result Set of objects with nested arrays of subsets from linked tables
      */
     private static function parseDuplicatedRows($res, $className, $table, $linked_keys) {
         $rs = [];
