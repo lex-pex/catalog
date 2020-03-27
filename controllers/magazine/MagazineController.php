@@ -30,10 +30,13 @@ class MagazineController
         // $list = Magazine::chunkWith('authors', 0, 5, false);
         // $list = Magazine::bulkChunkWith(new Author(), 0, 5, false);
         // $p = new Pager(new Magazine(), 5, false, 'authors');
+
         $p = new Pager(new Magazine(), 5, false, new Author()); // Bulk SQL Operation
         if(!$pager_list = $p->feed($page)) abort(404);
+
         $pager = $pager_list['pager'];
         $list = $pager_list['result_set'];
+
         require_once ROOT . '/view/magazine/list.php';
     }
 
