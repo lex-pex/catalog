@@ -108,7 +108,7 @@ trait Relations {
     /** Bulk Operations with Linked Tables, In one query, parsing duplicated rows */
 
     /**
-     * Return All Records with Arrording Related as Array
+     * Return All Records with According Related as Array
      * In one query, by means of parsing duplicated rows
      * @param Model $model
      * @param bool $order
@@ -216,7 +216,7 @@ trait Relations {
         $i = -1;
         $item = null;
         $m = new $className();
-        while ($row = $res->fetch()) { 
+        while ($row = $res->fetch()) {
             if(!in_array($row['id'], $ids)) {
                 $m = new $className(); // Eliminate duplicated records
                 $m->id = $row['id'];

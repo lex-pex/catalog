@@ -1,14 +1,13 @@
 <?php
 
 /* - - - - - - - - - - - - - - - - - -
- * ______ Global Helpers Plug-In
+ * Global Helpers
  * Autoload function init() initiate 
  * the App with all its helpers 
  */
 
 require ROOT. '/helpers/Auth.php';
 use Helpers\Auth;
-
 
 init();
 
@@ -19,7 +18,7 @@ function init() {
     set_old_form_params();
 }
 
-// ______ Routes ______
+// ______ Global Routes Helpers ______
 
 /**
  * Put route string in the out write stream 
@@ -45,7 +44,7 @@ function redirect(string $route) {
     exit();
 }
 
-// ______ Forms Interaction Аunctional ______ 
+// ______ Forms Interaction ______
 
 /**
  * Remember request params on redirect back event 
@@ -70,7 +69,7 @@ function old($key) {
     return '';
 }
 
-// ______ Auth and User ______
+// ______ Auth and User helpers ______
 
 function user() {
     return Auth::user();
@@ -100,15 +99,6 @@ function is_token() {
 function csrf_token() {
     return $_SESSION['auth']['csrf_token'];
 }
-
-
-
-
-
-
-
-
-
 
 
 
